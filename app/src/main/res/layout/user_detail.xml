@@ -50,11 +50,23 @@
             android:textSize="10sp" />
     </ScrollView>
 
+    <TextView
+        android:id="@+id/userPjctTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:hint="User Projects"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/image"/>
+        android:layout_below="@id/userPjctTxt"/>
 
 
 </RelativeLayout>

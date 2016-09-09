@@ -3,18 +3,18 @@ package com.edgar.restapiapplication.model;
 
 public class Repo {
 
-    String reposName;
-    String reposLanguage;
+    String name;
+    String language;
 
     Repo(){
 
     }
 
-    public String getReposName() {
-        return reposName;
+    public String getName() {
+        return name;
     }
 
-    public String getReposLanguage() {
-        return reposLanguage;
+    public String getLanguage() {
+        return language;
     }
 }

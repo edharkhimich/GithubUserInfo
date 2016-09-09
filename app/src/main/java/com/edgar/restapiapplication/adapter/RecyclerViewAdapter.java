@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    private static final String LOG = "myLogs";
     List<Repo> repositories;
 
     public RecyclerViewAdapter(){
@@ -34,9 +35,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Repo repo = repositories.get(position);
-        Log.d("myLogs", repo.getReposName());
-        holder.repos_name.setText(repo.getReposName());
-        holder.repos_language.setText(repo.getReposLanguage());
+        Log.d("myLogs", "reposNAME ====> " + repositories.get(0).getName());
+        holder.repos_name.setText("Project name : " + repo.getName());
+        holder.repos_language.setText("Language : " + repo.getLanguage());
 
     }
 
@@ -48,6 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void setItems(List<Repo> repositories){
         this.repositories = repositories;
         notifyDataSetChanged();
+        Log.d(LOG, "Now repositories = " + repositories);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
