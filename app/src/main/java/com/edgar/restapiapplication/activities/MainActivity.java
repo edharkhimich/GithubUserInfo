@@ -9,44 +9,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.edgar.restapiapplication.R;
-import com.edgar.restapiapplication.adapter.RecyclerViewAdapter;
-import com.edgar.restapiapplication.api.Api;
-import com.edgar.restapiapplication.model.Repo;
-import com.edgar.restapiapplication.model.User;
 
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.fabric.sdk.android.Fabric;
+
 
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
-    public static final String RESPONSE_NAME = "name";
-    private static final String LOG = "myLogs";
-    private static final String RESPONSE_BIO = "bio";
-    private static final String RESPONSE_AVATAR = "avatar";
     private static final String INTENT_NAME = "name_key";
-    private RecyclerViewAdapter adapter;
+
 
     @Bind(R.id.searchBtn)
     Button searchBtn;
     public static EditText userNameEt;
+    private String userName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         userNameEt = (EditText) findViewById(R.id.editText);
 
         ButterKnife.bind(this);
+
 
 
     }
@@ -56,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d("log", "OnClick");
         String userName = userNameEt.getText().toString();
 
-        final Intent intent = new Intent(getApplicationContext(),
-                UserDetailsActivity.class);
-        intent.putExtra(INTENT_NAME, userName);
-        startActivity(intent);
-
+        if (userName.isEmpty())
+            Toast.makeText(this, "Please enter the name", Toast.LENGTH_LONG).show();
+        else {
+            final Intent intent = new Intent(getApplicationContext(),
+                    UserDetailsActivity.class);
+            intent.putExtra(INTENT_NAME, userName);
+            startActivity(intent);
+        }
     }
+
 
 
     @Override
