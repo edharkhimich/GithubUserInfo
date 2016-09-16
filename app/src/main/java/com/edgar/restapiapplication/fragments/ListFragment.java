@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.edgar.restapiapplication.R;
+import com.edgar.restapiapplication.activities.MainActivity;
 import com.edgar.restapiapplication.adapter.RecyclerViewAdapter;
 import com.edgar.restapiapplication.api.Api;
 import com.edgar.restapiapplication.model.Repo;
@@ -31,10 +32,13 @@ public class ListFragment extends Fragment {
 
     private RecyclerViewAdapter adapter;
 
+    public ListFragment(){
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.list_fragment, null);
+        View v = inflater.inflate(R.layout.list_fragment, container, false);
 
         ButterKnife.bind(this, v);
 
@@ -42,13 +46,21 @@ public class ListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.user_projects);
+
         Api.getInstance().getApiInterface().getUserInformationForRepo(UserInfoFragment.userName)
                 .enqueue(new Callback<List<Repo>>() {
 
                     @Override
                     public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                        List<Repo> repoList = response.body();
-                        adapter.setItems(repoList);
+                        int code = response.code();
+                        if(code == 200) {
+                            List<Repo> repoList = response.body();
+                            adapter.setItems(repoList);
+                        }
+                        else{
+                            Toast.makeText(getActivity(), R.string.not_correct, Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
@@ -58,5 +70,11 @@ public class ListFragment extends Fragment {
                 });
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        super.onDestroyView();
     }
 }

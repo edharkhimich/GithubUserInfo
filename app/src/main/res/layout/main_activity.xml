@@ -3,6 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/myToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/my_user_theme"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        />
+
     <FrameLayout
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
