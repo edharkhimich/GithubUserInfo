@@ -4,29 +4,20 @@ package com.edgar.restapiapplication.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.edgar.restapiapplication.LanProgressNoFragmentDialog;
 import com.edgar.restapiapplication.R;
 import com.edgar.restapiapplication.activities.MainActivity;
 import com.edgar.restapiapplication.api.Api;
 import com.edgar.restapiapplication.model.User;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +30,6 @@ import retrofit2.Response;
 public class UserInfoFragment extends Fragment {
 
     public static final String LOG = "myLogs";
-    public static final String NOT_FOUND_KEY = "key";
 
     @Bind(R.id.name_surname)
     TextView txtName;
@@ -47,20 +37,10 @@ public class UserInfoFragment extends Fragment {
     TextView bio;
     @Bind(R.id.image)
     ImageView image;
-    @Bind(R.id.show_repositories)
-    Button buttonRepos;
 
     public static String userName;
 
     public UserInfoFragment() {
-
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
 
     }
 
@@ -76,12 +56,9 @@ public class UserInfoFragment extends Fragment {
         userName = bundle.getString(UserName.KEY);
 
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("User Name Information ");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         tryReguest();
+
         return v;
     }
 
@@ -101,11 +78,8 @@ public class UserInfoFragment extends Fragment {
         Api.getInstance().getApiInterface().getUserInformation(userName)
                 .enqueue(new Callback<User>() {
 
-
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-
-
                         int code = response.code();
                         Log.d(LOG, "ON RESPONSE " + code);
                         if (code == 200) {
@@ -128,12 +102,11 @@ public class UserInfoFragment extends Fragment {
                             ResponseBody responseBody = response.errorBody();
                             Log.e(LOG, "error AAAAAA");
                             if (responseBody != null) {
-
                                 Toast.makeText(getActivity(), "Error " + code , Toast.LENGTH_SHORT).show();
                             }
-
                             getActivity().getSupportFragmentManager().popBackStack();
                         }
+                        ((MainActivity) getActivity()).dismissDialog();
                     }
 
                     @Override
@@ -141,6 +114,5 @@ public class UserInfoFragment extends Fragment {
                         Log.d(LOG, "Errrooeee");
                     }
                 });
-        ((MainActivity)getActivity()).dismissDialog();
     }
 }

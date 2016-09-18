@@ -38,6 +38,7 @@ public class ListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).showProgress();
         View v = inflater.inflate(R.layout.list_fragment, container, false);
 
         ButterKnife.bind(this, v);
@@ -61,6 +62,7 @@ public class ListFragment extends Fragment {
                         else{
                             Toast.makeText(getActivity(), R.string.not_correct, Toast.LENGTH_LONG).show();
                         }
+                        ((MainActivity) getActivity()).dismissDialog();
                     }
 
                     @Override
