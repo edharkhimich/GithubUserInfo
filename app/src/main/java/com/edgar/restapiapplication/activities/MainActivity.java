@@ -32,13 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG = "myLogs";
     private static final String KEY = "key";
 
+    LanProgressNoFragmentDialog dialog;
+
     @Bind(R.id.myToolbar)
     Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LanProgressNoFragmentDialog dialog = new LanProgressNoFragmentDialog(this);
+        dialog = new LanProgressNoFragmentDialog(this);
         dialog.setCancelable(false);
         Fabric.with(this, new Crashlytics());
 
@@ -90,5 +92,16 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction.commit();
     }
+
+    public void showProgress(){
+        dialog.show();
+    }
+
+    public void dismissDialog(){
+        if(dialog!=null){
+            dialog.dismiss();
+        }
+    }
+
 }
 

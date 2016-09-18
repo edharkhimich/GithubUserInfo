@@ -59,8 +59,7 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LanProgressNoFragmentDialog dialog = new LanProgressNoFragmentDialog(getActivity());
-        dialog.setCancelable(false);
+
 
 
     }
@@ -68,6 +67,7 @@ public class UserInfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).showProgress();
 
         View v = inflater.inflate(R.layout.userinfo_fragment, container, false);
         ButterKnife.bind(this, v);
@@ -76,7 +76,11 @@ public class UserInfoFragment extends Fragment {
         userName = bundle.getString(UserName.KEY);
 
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("User Name Information ");
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         tryReguest();
         return v;
     }
@@ -96,6 +100,7 @@ public class UserInfoFragment extends Fragment {
     private void tryReguest() {
         Api.getInstance().getApiInterface().getUserInformation(userName)
                 .enqueue(new Callback<User>() {
+
 
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -136,5 +141,6 @@ public class UserInfoFragment extends Fragment {
                         Log.d(LOG, "Errrooeee");
                     }
                 });
+        ((MainActivity)getActivity()).dismissDialog();
     }
 }

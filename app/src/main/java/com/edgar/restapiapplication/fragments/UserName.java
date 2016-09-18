@@ -39,8 +39,6 @@ public class UserName extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LanProgressNoFragmentDialog dialog = new LanProgressNoFragmentDialog(getActivity());
-        dialog.setCancelable(false);
 
     }
 
