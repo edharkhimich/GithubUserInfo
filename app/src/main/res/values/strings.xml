@@ -8,8 +8,8 @@
     <string name="code">code </string>
     <string name="unknown">Unknown</string>
     <string name="user_dont_have_any_information">User don\'t have any information</string>
-    <string name="project_name">Project name :  </string>
-    <string name="language">Language :  </string>
+    <string name="project_name" formatted="false">Project name: %s</string>
+    <string name="language" formatted="false">Language: %s</string>
     <string name="reposName">reposNAME ====> </string>
     <string name="please_enter_name">Please enter the name</string>
     <string name="some_error_in_response">Some error in response</string>

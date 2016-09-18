@@ -11,7 +11,6 @@
         android:elevation="4dp"
         android:theme="@style/my_user_theme"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-
         />
 
     <FrameLayout

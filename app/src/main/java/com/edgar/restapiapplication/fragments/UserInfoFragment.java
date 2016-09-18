@@ -4,23 +4,34 @@ package com.edgar.restapiapplication.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.edgar.restapiapplication.LanProgressNoFragmentDialog;
 import com.edgar.restapiapplication.R;
 import com.edgar.restapiapplication.activities.MainActivity;
 import com.edgar.restapiapplication.api.Api;
 import com.edgar.restapiapplication.model.User;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +47,8 @@ public class UserInfoFragment extends Fragment {
     TextView bio;
     @Bind(R.id.image)
     ImageView image;
+    @Bind(R.id.show_repositories)
+    Button buttonRepos;
 
     public static String userName;
 
@@ -46,6 +59,8 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LanProgressNoFragmentDialog dialog = new LanProgressNoFragmentDialog(getActivity());
+        dialog.setCancelable(false);
 
 
     }
@@ -69,13 +84,7 @@ public class UserInfoFragment extends Fragment {
 
     @OnClick(R.id.show_repositories)
     void onClickRepositoriesSearch() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        ListFragment listFragment = new ListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(UserName.KEY, userName);
-        transaction.replace(R.id.containerMain, listFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        ((MainActivity)getActivity()).changeFragment(new ListFragment(), true);
     }
 
     @Override
@@ -91,9 +100,9 @@ public class UserInfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
 
-                        Log.d(LOG, "ON RESPONSE");
-                        int code = response.code();
 
+                        int code = response.code();
+                        Log.d(LOG, "ON RESPONSE " + code);
                         if (code == 200) {
 
                             final String responseName = response.body().getName();
@@ -111,9 +120,14 @@ public class UserInfoFragment extends Fragment {
                                         .into(image);
                             }
                         } else {
-                            FragmentTransaction tr = getFragmentManager().beginTransaction();
-                            tr.replace(R.id.containerMain, new UserName());
-                            tr.commit();
+                            ResponseBody responseBody = response.errorBody();
+                            Log.e(LOG, "error AAAAAA");
+                            if (responseBody != null) {
+
+                                Toast.makeText(getActivity(), "Error " + code , Toast.LENGTH_SHORT).show();
+                            }
+
+                            getActivity().getSupportFragmentManager().popBackStack();
                         }
                     }
 
@@ -122,6 +136,5 @@ public class UserInfoFragment extends Fragment {
                         Log.d(LOG, "Errrooeee");
                     }
                 });
-
     }
 }

@@ -36,8 +36,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Repo repo = repositories.get(position);
-        holder.repos_name.setText(context.getString(R.string.project_name) + " " + repo.getName());
-        holder.repos_language.setText(context.getString(R.string.language) + " " + repo.getLanguage());
+        holder.repos_name.setText(context.getString(R.string.project_name, repo.getName()));
+        holder.repos_language.setText(context.getString(R.string.language, repo.getLanguage()));
 
     }
 
