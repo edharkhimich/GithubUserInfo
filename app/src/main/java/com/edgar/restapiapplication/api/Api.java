@@ -9,6 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
 
+    public static final String BASE_URL = "https://api.github.com";
+
     private static Api api;
 
     private Api(){
@@ -32,7 +34,7 @@ public class Api {
     public ApiInterface getApiInterface(){
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
+                .baseUrl(BASE_URL)
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -29,8 +29,6 @@ import retrofit2.Response;
 
 public class UserInfoFragment extends Fragment {
 
-    public static final String LOG = "myLogs";
-
     @Bind(R.id.name_surname)
     TextView txtName;
     @Bind(R.id.bio)
@@ -55,7 +53,7 @@ public class UserInfoFragment extends Fragment {
         Bundle bundle = this.getArguments();
         userName = bundle.getString(UserName.KEY);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("User Name Information ");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.user_name_info);
 
         tryReguest();
 
@@ -81,7 +79,6 @@ public class UserInfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         int code = response.code();
-                        Log.d(LOG, "ON RESPONSE " + code);
                         if (code == 200) {
 
                             final String responseName = response.body().getName();
@@ -100,9 +97,8 @@ public class UserInfoFragment extends Fragment {
                             }
                         } else {
                             ResponseBody responseBody = response.errorBody();
-                            Log.e(LOG, "error AAAAAA");
                             if (responseBody != null) {
-                                Toast.makeText(getActivity(), "Error " + code , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getString(R.string.error_response), Toast.LENGTH_SHORT).show();
                             }
                             getActivity().getSupportFragmentManager().popBackStack();
                         }
@@ -111,7 +107,7 @@ public class UserInfoFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Log.d(LOG, "Errrooeee");
+                        Toast.makeText(getActivity(), R.string.error_in_response, Toast.LENGTH_SHORT);
                     }
                 });
     }

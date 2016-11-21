@@ -18,4 +18,9 @@
     <string name="user_projects">User Projects</string>
     <string name="user_not_found">User not found. Please try again!</string>
     <string name="not_correct">Your response come not correct</string>
+    <string name="internet_error">This application work correctly if the power of the Internet is switch on.</string>
+    <string name="user_name">User Name</string>
+    <string name="user_name_info">"User Name Information "</string>
+    <string name="error_response">"Uncorrect username"</string>
+    <string name="error_in_response">Error in response</string>
 </resources>

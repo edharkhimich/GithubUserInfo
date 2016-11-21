@@ -38,7 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Repo repo = repositories.get(position);
         holder.repos_name.setText(context.getString(R.string.project_name, repo.getName()));
         holder.repos_language.setText(context.getString(R.string.language, repo.getLanguage()));
-
     }
 
     @Override

@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
-import com.edgar.restapiapplication.LanProgressNoFragmentDialog;
+import com.edgar.restapiapplication.other.LanProgressNoFragmentDialog;
 import com.edgar.restapiapplication.R;
 
 import com.edgar.restapiapplication.fragments.UserName;
@@ -91,6 +91,5 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     }
-
 }
 

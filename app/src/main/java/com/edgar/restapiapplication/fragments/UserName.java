@@ -5,17 +5,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.edgar.restapiapplication.LanProgressNoFragmentDialog;
 import com.edgar.restapiapplication.R;
 import com.edgar.restapiapplication.activities.MainActivity;
 
@@ -26,8 +23,6 @@ import butterknife.OnClick;
 public class UserName extends Fragment {
 
     public static final String KEY = "key";
-    private static final String KEY_OUTSTATE = "out state";
-    private static final String LOG = "myLogs";
     public String userName;
 
     @Bind(R.id.searchBtn)
@@ -48,11 +43,10 @@ public class UserName extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(LOG, "onCreateView! savedinstance = " + savedInstanceState);
         View v = inflater.inflate(R.layout.username_fragment, container, false);
         ButterKnife.bind(this, v);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("User Name");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.user_name);
 
         user_name.requestFocus();
 
@@ -78,7 +72,7 @@ public class UserName extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(userInfoFragment, true);
             } else {
 
-                Toast.makeText(getActivity(), "This application work correctly if the power of the Internet is switch on.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.internet_error, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
                 getActivity().startActivity(intent);
@@ -88,7 +82,6 @@ public class UserName extends Fragment {
 
     @Override
     public void onDestroyView() {
-        Log.d(LOG, "onDestroyView");
         ButterKnife.unbind(this);
         super.onDestroyView();
     }

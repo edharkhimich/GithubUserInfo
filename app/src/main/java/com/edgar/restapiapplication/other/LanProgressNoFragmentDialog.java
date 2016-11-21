@@ -1,4 +1,4 @@
-package com.edgar.restapiapplication;
+package com.edgar.restapiapplication.other;
 
 
 import android.app.Dialog;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.edgar.restapiapplication.R;
 
 public class LanProgressNoFragmentDialog extends Dialog {
 
